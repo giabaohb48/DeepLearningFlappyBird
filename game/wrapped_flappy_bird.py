@@ -80,7 +80,7 @@ class GameState:
             pipeMidPos = pipe['x'] + PIPE_WIDTH / 2
             if pipeMidPos <= playerMidPos < pipeMidPos + 4:
                 self.score += 1
-                #SOUNDS['point'].play()
+                # SOUNDS['point'].play()
                 reward = 1
 
         # playerIndex basex change
@@ -134,7 +134,7 @@ class GameState:
 
         SCREEN.blit(IMAGES['base'], (self.basex, BASEY))
         # print score so player overlaps the score
-        # showScore(self.score)
+        showScore(self.score)
         SCREEN.blit(IMAGES['player'][self.playerIndex],
                     (self.playerx, self.playery))
 

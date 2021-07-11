@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.compat.v1.disable_eager_execution()
 import cv2
 import sys
 sys.path.append("game/")
@@ -13,13 +15,16 @@ from collections import deque
 GAME = 'bird' # the name of the game being played for log files
 ACTIONS = 2 # number of valid actions
 GAMMA = 0.99 # decay rate of past observations
-OBSERVE = 100000. # timesteps to observe before training
+OBSERVE = 10000. # timesteps to observe before training
+# OBSERVE = 1000
 EXPLORE = 2000000. # frames over which to anneal epsilon
 FINAL_EPSILON = 0.0001 # final value of epsilon
-INITIAL_EPSILON = 0.0001 # starting value of epsilon
+INITIAL_EPSILON = 0.01 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
 FRAME_PER_ACTION = 1
+lr = 1e-6
+
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev = 0.01)
@@ -81,7 +86,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     y = tf.placeholder("float", [None])
     readout_action = tf.reduce_sum(tf.multiply(readout, a), reduction_indices=1)
     cost = tf.reduce_mean(tf.square(y - readout_action))
-    train_step = tf.train.AdamOptimizer(1e-6).minimize(cost)
+    train_step = tf.train.AdamOptimizer(lr).minimize(cost)
 
     # open up a game state to communicate with emulator
     game_state = game.GameState()
