@@ -119,7 +119,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     # start training
     epsilon = INITIAL_EPSILON
     t = 0
-    while "flappy bird" != "angry bird":
+    while True:
         # choose an action epsilon greedily
         readout_t = readout.eval(feed_dict={s : [s_t]})[0]
         a_t = np.zeros([ACTIONS])
