@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-# import tensorflow as tf
-import tensorflow.compat.v1 as tf
-tf.compat.v1.disable_eager_execution()
+import tensorflow as tf
+# import tensorflow.compat.v1 as tf
+# tf.compat.v1.disable_eager_execution()
 import cv2
 import sys
 sys.path.append("game/")
@@ -15,11 +15,11 @@ from collections import deque
 GAME = 'bird' # the name of the game being played for log files
 ACTIONS = 2 # number of valid actions
 GAMMA = 0.99 # decay rate of past observations
-OBSERVE = 10000. # timesteps to observe before training
+OBSERVE = 1000. # timesteps to observe before training
 # OBSERVE = 1000
 EXPLORE = 2000000. # frames over which to anneal epsilon
 FINAL_EPSILON = 0.0001 # final value of epsilon
-INITIAL_EPSILON = 0.01 # starting value of epsilon
+INITIAL_EPSILON = 0.1 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
 FRAME_PER_ACTION = 1
